@@ -1,4 +1,4 @@
-import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
-import base64
+streamlit
+pandas
+plotly.graph_objects
+base64
