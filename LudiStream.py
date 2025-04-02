@@ -186,13 +186,18 @@ if selection == "Catalogue":
             else:
                 nbjoueur = 4  # >8
             
+            # Vérification des valeurs pour éviter les erreurs
+            complexite = row.get("Complexite", 1)  # Valeur par défaut 1 si manquante
+            bayesaverage = row.get("bayesaverage", 1)  # Valeur par défaut 1 si manquante
+
+            # Normalisation des données
             radar_data = {
-                'Critère': ["Nombre de joueurs", "Durée de jeu", "Complexité", "Âge", "Notes"],
+                'Critère': ["Nombre de joueurs", "Durée de jeu", "Complexité", "Notes"],
                 'Valeur': [
                     nbjoueur / 4,
                     duration / 4,
-                    min(row["Complexite"], 5) / 5,
-                    min(row["bayesaverage"], 10) / 10
+                    min(complexite, 5) / 5,
+                    min(bayesaverage, 10) / 10,
                 ]
             }
 
