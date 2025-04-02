@@ -1,4 +1,4 @@
 streamlit
 pandas
-plotly.graph_objects
+plotly
 base64
