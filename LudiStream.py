@@ -178,12 +178,15 @@ if selection == "Catalogue":
 
             duration_norm = duration / 4  # Normalisation sur [0,1]
 
+            # Calcul de la moyenne entre Min_joueurs et Max_joueurs
+            moyenne_joueurs = (row["Min_joueurs"] + row["Max_joueurs"]) / 2
+
             # Transformation et normalisation des données nb joueurs (0-1)
-            if row["Min_joueurs"] <= 2:
+            if moyenne_joueurs <= 2:
                 nbjoueur = 1  # <=2
-            elif row["Min_joueurs"] <= 4:
+            elif moyenne_joueurs <= 4:
                 nbjoueur = 2  # <=4
-            elif row["Min_joueurs"] <= 8:
+            elif moyenne_joueurs <= 8:
                 nbjoueur = 3  # <=8
             else:
                 nbjoueur = 4  # >8
@@ -199,7 +202,7 @@ if selection == "Catalogue":
 
             # Création des données pour le graphique
             radar_data = {
-                'Critère': ["Nombre de joueurs", "Durée de jeu", "Complexité", "Notes"],
+                'Critère': ["Nombre de joueurs en moyenne", "Durée de jeu", "Complexité", "Notes"],
                 'Valeur': [nbjoueur_norm, duration_norm, complexite_norm, bayesaverage_norm]
             }
 
