@@ -1,4 +1,4 @@
 streamlit
-pandas
 plotly
-base64
+pandas
+streamlit-option-menu
