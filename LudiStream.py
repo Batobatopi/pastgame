@@ -164,7 +164,7 @@ if selection == "Catalogue":
             
             st.markdown(f"[🔗 Voir sur BGG](https://boardgamegeek.com/boardgame/{row['id']})")
 
-            # Transformation et normalisation des données durée
+            # Transformation et normalisation des données durée (0-1)
             if row["Duree_moy"] <= 30:
                 duration = 0  # 0h
             elif row["Duree_moy"] <= 60:
@@ -176,7 +176,9 @@ if selection == "Catalogue":
             else:
                 duration = 4  # +3h
 
-            # Transformation et normalisation des données nb joueurs
+            duration_norm = duration / 4  # Normalisation sur [0,1]
+
+            # Transformation et normalisation des données nb joueurs (0-1)
             if row["Min_joueurs"] <= 2:
                 nbjoueur = 1  # <=2
             elif row["Min_joueurs"] <= 4:
@@ -185,41 +187,41 @@ if selection == "Catalogue":
                 nbjoueur = 3  # <=8
             else:
                 nbjoueur = 4  # >8
-            
+
+            nbjoueur_norm = nbjoueur / 4  # Normalisation sur [0,1]
+
             # Vérification des valeurs pour éviter les erreurs
             complexite = row.get("Complexite", 1)  # Valeur par défaut 1 si manquante
             bayesaverage = row.get("bayesaverage", 1)  # Valeur par défaut 1 si manquante
 
-            # Normalisation des données
+            complexite_norm = min(complexite, 5) / 5  # Normalisation sur [0,1]
+            bayesaverage_norm = min(bayesaverage, 10) / 10  # Normalisation sur [0,1]
+
+            # Création des données pour le graphique
             radar_data = {
                 'Critère': ["Nombre de joueurs", "Durée de jeu", "Complexité", "Notes"],
-                'Valeur': [
-                    nbjoueur / 4,
-                    duration / 4,
-                    min(complexite, 5) / 5,
-                    min(bayesaverage, 10) / 10,
-                ]
+                'Valeur': [nbjoueur_norm, duration_norm, complexite_norm, bayesaverage_norm]
             }
 
             # Création du graphique en toile
-            fig = go.Figure(data = go.Scatterpolar(
-                r = radar_data['Valeur'],
-                theta = radar_data['Critère'],
-                fill = "toself",
-                name = row["name"]
+            fig = go.Figure(data=go.Scatterpolar(
+                r=radar_data['Valeur'],
+                theta=radar_data['Critère'],
+                fill="toself",
+                name=row["name"]
             ))
 
             fig.update_layout(
-                polar = dict(
-                    radialaxis = dict(
-                        visible = True,
-                        range = [0, 1]
+                polar=dict(
+                    radialaxis=dict(
+                        visible=True,
+                        range=[0, 1]  # Échelle uniforme 0-1
                     )
                 ),
-                showlegend = False,
-                title = f"Graphique en toile pour {row['name']}",
-                width = 333,
-                height = 333
+                showlegend=False,
+                title=f"Graphique en toile pour {row['name']}",
+                width=333,
+                height=333
             )
 
             # Afficher le graphique en toile d'araignée sous chaque jeu
