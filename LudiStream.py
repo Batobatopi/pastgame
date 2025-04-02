@@ -115,7 +115,7 @@ if selection == "Catalogue":
 
     # Si un nom de jeu a été entré, on ne prend pas en compte le filtrage par lettre ou joueurs
     if game_name_filter:
-        filtered_df = df_sorted[df_sorted['name'].str.contains(game_name_filter[0], case = False, na = False)]
+        filtered_df = df[df['search_display'] == game_name_filter ]
 
     # Calculer le début et la fin des jeux à afficher pour cette page
     start_idx = (page - 1) * games_per_page
