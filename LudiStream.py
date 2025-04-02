@@ -165,16 +165,16 @@ if selection == "Catalogue":
             st.markdown(f"[🔗 Voir sur BGG](https://boardgamegeek.com/boardgame/{row['id']})")
 
             # Transformation et normalisation des données
-            if row["Duree_moy"] <= 60:
+            if row["Duree_moy"] <= 30:
                 duration = 0  # 0h
-            elif row["Duree_moy"] <= 120:
+            elif row["Duree_moy"] <= 60:
                 duration = 1  # 1h
-            elif row["Duree_moy"] <= 180:
+            elif row["Duree_moy"] <= 120:
                 duration = 2  # 2h
-            elif row["Duree_moy"] <= 240:
+            elif row["Duree_moy"] <= 180:
                 duration = 3  # 3h
             else:
-                duration = 4  # +4h
+                duration = 4  # +3h
 
             radar_data = {
                 'Critère': ["Nombre de joueurs", "Durée de jeu", "Complexité", "Âge", "Notes"],
