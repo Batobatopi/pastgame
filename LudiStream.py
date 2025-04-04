@@ -162,6 +162,8 @@ if selection == "Catalogue":
             # Affichage de la complexité avec 2 chiffres après la virgule
             st.write(f"**Complexité** : {round(row['Complexite'], 2)}")
 
+            # Affichage de l'âge
+            st.write(f"**Âge** : {row['age']}")
 
             if row['Francais'] == 'Yes' :
                 st.write(f"🔵⚪🔴 Existe en version française")
@@ -269,6 +271,8 @@ elif selection == "Recommandations":
             st.write(f"⭐ Note moyenne : {round(df[df['search_display'] == search_query]['average'].values[0],1)}")
             st.write(f"🕑 Durée : {df[df['search_display'] == search_query]['Duree_moy'].values[0]} minutes")
             st.write(f"🎮 Nb joueurs : {df[df['search_display'] == search_query]['Min_joueurs'].values[0]}-{df[df['search_display'] == search_query]['Max_joueurs'].values[0]}")
+            st.write(f"👶 Âge : {df[df['search_display'] == search_query]['age'].values[0]} ")
+            st.write(f"🧩 Complexité : {round(df[df['search_display'] == search_query]['Complexite'].values[0],2)} ")
             st.write(f"🎯 Mécaniques : {df[df['search_display'] == search_query]['Mecaniques'].values[0]}")
             st.write(f"♟️ Description : {df[df['search_display'] == search_query]['Description'].values[0]}")
             bgg_url = f" https://boardgamegeek.com/boardgame/{jeu_principal['id']}"
