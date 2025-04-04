@@ -78,7 +78,7 @@ if selection == "Catalogue":
     complexity_filter = st.sidebar.slider("Sélectionner la complexité", 1, 5, (1, 5))
 
     # Slider pour la complexité
-    age_filter = st.sidebar.slider("Sélectionner l'âge'", 1, 14, (1, 14))
+    age_filter = st.sidebar.slider("Sélectionner l'âge", 1, 14, (1, 14))
 
     # Filtre par mécanique
     mechanic_filter = st.sidebar.selectbox("Sélectionner la mécanique", ['Tous'] + sorted(df['Mecaniques'].dropna().unique().tolist()))
