@@ -31,7 +31,7 @@ def load_image_data():
 
 df0 = pd.read_csv('bdd_bgg.csv', encoding = 'utf-8')
 df1 = pd.read_csv('bgg_thumbnail.csv', encoding = 'utf-8')
-df1 = df1[['id','Thumbnail']]
+df1 = df1[['id','Thumbnail','age']]
 df = pd.merge(df0, df1, on = 'id', how = 'left')
 
 df_images = load_image_data()  # Charger les images
@@ -77,6 +77,9 @@ if selection == "Catalogue":
     # Slider pour la complexité
     complexity_filter = st.sidebar.slider("Sélectionner la complexité", 1, 5, (1, 5))
 
+    # Slider pour la complexité
+    age_filter = st.sidebar.slider("Sélectionner l'âge'", 1, 14, (1, 14))
+
     # Filtre par mécanique
     mechanic_filter = st.sidebar.selectbox("Sélectionner la mécanique", ['Tous'] + sorted(df['Mecaniques'].dropna().unique().tolist()))
 
@@ -105,6 +108,9 @@ if selection == "Catalogue":
 
     # Appliquer un filtre de nombre de joueurs max
     filtered_df = filtered_df[(filtered_df['Max_joueurs'] >= players_filter_max[0]) & (filtered_df['Max_joueurs'] <= players_filter_max[1])]
+
+    # Appliquer un filtre sur l'âge
+    filtered_df = filtered_df[(filtered_df['age'] >= age_filter[0]) & (filtered_df['age'] <= age_filter[1])]
 
     # Appliquer le filtre par mécanique
     if mechanic_filter != 'Tous':
