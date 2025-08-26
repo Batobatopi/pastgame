@@ -236,7 +236,7 @@ if selection == "Catalogue":
             )
 
             # Afficher le graphique en toile d'araignée sous chaque jeu
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key="plot-main")
 
     # Contrôles de navigation entre les pages
     col1, col2 = st.columns([1, 1])
