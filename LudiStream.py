@@ -90,18 +90,18 @@ if selection == "Catalogue":
     page = st.sidebar.number_input("Page", min_value = 1, max_value = (len(df) // games_per_page + 1), step = 1, value = 1)
 
     # Fonction de filtrage en fonction de la plage de lettres sélectionnée
-    def filter_by_letter_range(letter_filter):
-        if letter_filter != 'Tous' and letter_filter != 'Autres':
-            start_letter, end_letter = letter_filter.split(' - ')
-            filtered_df = df_sorted[df_sorted['name'].str[0].between(start_letter, end_letter)]
-        elif letter_filter == 'Autres':
-            filtered_df = df_sorted[~df_sorted['name'].str[0].between('A', 'Z')]
-        else:
-            filtered_df = df_sorted
-        return filtered_df
+    # def filter_by_letter_range(letter_filter):
+    #     if letter_filter != 'Tous' and letter_filter != 'Autres':
+    #         start_letter, end_letter = letter_filter.split(' - ')
+    #         filtered_df = df_sorted[df_sorted['name'].str[0].between(start_letter, end_letter)]
+    #     elif letter_filter == 'Autres':
+    #         filtered_df = df_sorted[~df_sorted['name'].str[0].between('A', 'Z')]
+    #     else:
+    #         filtered_df = df_sorted
+    #     return filtered_df
 
     # Appliquer le filtre par lettre
-    filtered_df = filter_by_letter_range(letter_filter)
+    # filtered_df = filter_by_letter_range(letter_filter)
 
     # Appliquer un filtre de nombre de joueurs min
     filtered_df = filtered_df[(filtered_df['Min_joueurs'] >= players_filter_min[0]) & (filtered_df['Min_joueurs'] <= players_filter_min[1])]
