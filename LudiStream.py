@@ -110,7 +110,7 @@ if selection == "Catalogue":
     filtered_df = filtered_df[(filtered_df['Max_joueurs'] >= players_filter_max[0]) & (filtered_df['Max_joueurs'] <= players_filter_max[1])]
 
     # Appliquer un filtre sur l'âge
-    filtered_df = filtered_df[(filtered_df['age'] >= age_filter[0]) & (filtered_df['age'] <= age_filter[1])]
+    filtered_df = filtered_df[pd.to_numeric(filtered_df['age'], errors='coerce').between(age_filter[0], age_filter[1])].copy()
 
     # Appliquer le filtre par mécanique
     # if mechanic_filter != 'Tous':
