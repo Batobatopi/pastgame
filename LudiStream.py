@@ -110,7 +110,27 @@ if selection == "Catalogue":
     filtered_df = filtered_df[(filtered_df['Max_joueurs'] >= players_filter_max[0]) & (filtered_df['Max_joueurs'] <= players_filter_max[1])]
 
     # Appliquer un filtre sur l'âge
-    filtered_df = filtered_df[(filtered_df['age'] >= age_filter[0]) & (filtered_df['age'] <= age_filter[1])]
+    import re
+    import numpy as np
+
+    def parse_age(x):
+        if x is None or (isinstance(x, float) and np.isnan(x)):
+            return np.nan
+        s = str(x).strip()
+        # Exemples pris en charge: "8+", "10 ans", "7-12", "  14", "12 y/o"
+        m = re.search(r"\d+", s)
+        return float(m.group(0)) if m else np.nan
+
+    # Créer une colonne numérique une seule fois, en amont de ton filtrage
+    filtered_df["age_num"] = filtered_df["age"].apply(parse_age)
+
+    # Option 1 : exclure les lignes sans âge interprétable
+    mask_valid_age = filtered_df["age_num"].notna()
+
+    # Supposons que age_filter = (min_age, max_age) (ex. slider)
+    filtered_df = filtered_df[mask_valid_age &
+                            (filtered_df["age_num"] >= age_filter[0]) &
+                            (filtered_df["age_num"] <= age_filter[1])]
 
     # Appliquer le filtre par mécanique
     # if mechanic_filter != 'Tous':
