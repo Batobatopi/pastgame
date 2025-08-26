@@ -69,42 +69,42 @@ if selection == "Catalogue":
     game_name_filter = st.sidebar.selectbox("Recherchez un nom de jeu :",[""]+list(df['search_display'])) #Pierre
 
     # Double slider pour le nombre de joueurs (min)
-    players_filter_min = st.sidebar.slider("Sélectionner le nombre de joueurs minimum", 1, 10, (1, 10))
+    players_filter_min = st.sidebar.slider("Nombre de joueurs minimum", 1, 10, (1, 10))
 
     # Double slider pour le nombre de joueurs (max)
-    players_filter_max = st.sidebar.slider("Sélectionner le nombre de joueurs maximum", 1, 10, (1, 10))
+    players_filter_max = st.sidebar.slider("Nombre de joueurs maximum", 1, 10, (1, 10))
 
     # Slider pour la complexité
-    complexity_filter = st.sidebar.slider("Sélectionner la complexité", 1, 5, (1, 5))
+    complexity_filter = st.sidebar.slider("Complexité", 1, 5, (1, 5))
 
     # Slider pour la complexité
-    age_filter = st.sidebar.slider("Sélectionner l'âge", 1, 14, (1, 14))
+    age_filter = st.sidebar.slider("Âge", 1, 14, (1, 14))
 
     # Filtre par mécanique
-    mechanic_filter = st.sidebar.selectbox("Sélectionner la mécanique", ['Tous'] + sorted(df['Mecaniques'].dropna().unique().tolist()))
+    # mechanic_filter = st.sidebar.selectbox("Sélectionner la mécanique", ['Tous'] + sorted(df['Mecaniques'].dropna().unique().tolist()))
 
     # Filtre par lettre (Tous, A-E, F-J, K-O, P-T, U-Z, Autres)
-    letter_filter = st.sidebar.selectbox("Sélectionner la plage de lettres", ['Tous', 'A - E', 'F - J', 'K - O', 'P - T', 'U - Z', 'Autres'])
+    # letter_filter = st.sidebar.selectbox("Sélectionner la plage de lettres", ['Tous', 'A - E', 'F - J', 'K - O', 'P - T', 'U - Z', 'Autres'])
 
     # Filtre de page
     page = st.sidebar.number_input("Page", min_value = 1, max_value = (len(df) // games_per_page + 1), step = 1, value = 1)
 
     # Fonction de filtrage en fonction de la plage de lettres sélectionnée
-    def filter_by_letter_range(letter_filter):
-        if letter_filter != 'Tous' and letter_filter != 'Autres':
-            start_letter, end_letter = letter_filter.split(' - ')
-            filtered_df = df_sorted[df_sorted['name'].str[0].between(start_letter, end_letter)]
-        elif letter_filter == 'Autres':
-            filtered_df = df_sorted[~df_sorted['name'].str[0].between('A', 'Z')]
-        else:
-            filtered_df = df_sorted
-        return filtered_df
+    # def filter_by_letter_range(letter_filter):
+    #     if letter_filter != 'Tous' and letter_filter != 'Autres':
+    #         start_letter, end_letter = letter_filter.split(' - ')
+    #         filtered_df = df_sorted[df_sorted['name'].str[0].between(start_letter, end_letter)]
+    #     elif letter_filter == 'Autres':
+    #         filtered_df = df_sorted[~df_sorted['name'].str[0].between('A', 'Z')]
+    #     else:
+    #         filtered_df = df_sorted
+    #     return filtered_df
 
     # Appliquer le filtre par lettre
-    filtered_df = filter_by_letter_range(letter_filter)
+    # filtered_df = filter_by_letter_range(letter_filter)
 
     # Appliquer un filtre de nombre de joueurs min
-    filtered_df = filtered_df[(filtered_df['Min_joueurs'] >= players_filter_min[0]) & (filtered_df['Min_joueurs'] <= players_filter_min[1])]
+    filtered_df = df_sorted[(df_sorted['Min_joueurs'] >= players_filter_min[0]) & (df_sorted['Min_joueurs'] <= players_filter_min[1])]
 
     # Appliquer un filtre de nombre de joueurs max
     filtered_df = filtered_df[(filtered_df['Max_joueurs'] >= players_filter_max[0]) & (filtered_df['Max_joueurs'] <= players_filter_max[1])]
@@ -113,8 +113,8 @@ if selection == "Catalogue":
     filtered_df = filtered_df[(filtered_df['age'] >= age_filter[0]) & (filtered_df['age'] <= age_filter[1])]
 
     # Appliquer le filtre par mécanique
-    if mechanic_filter != 'Tous':
-        filtered_df = filtered_df[filtered_df['Mecaniques'].str.contains(mechanic_filter, case=False, na = False)]
+    # if mechanic_filter != 'Tous':
+    #     filtered_df = filtered_df[filtered_df['Mecaniques'].str.contains(mechanic_filter, case=False, na = False)]
 
     # Appliquer le filtre de complexité avec le slider
     filtered_df = filtered_df[(filtered_df['Complexite'] >= complexity_filter[0]) & (filtered_df['Complexite'] <= complexity_filter[1])]
@@ -236,7 +236,7 @@ if selection == "Catalogue":
             )
 
             # Afficher le graphique en toile d'araignée sous chaque jeu
-            st.plotly_chart(fig)
+            # st.plotly_chart(fig)
 
     # Contrôles de navigation entre les pages
     col1, col2 = st.columns([1, 1])
