@@ -104,7 +104,7 @@ if selection == "Catalogue":
     # filtered_df = filter_by_letter_range(letter_filter)
 
     # Appliquer un filtre de nombre de joueurs min
-    filtered_df = filtered_df[(filtered_df['Min_joueurs'] >= players_filter_min[0]) & (filtered_df['Min_joueurs'] <= players_filter_min[1])]
+    filtered_df = df_sorted[(df_sorted['Min_joueurs'] >= players_filter_min[0]) & (df_sorted['Min_joueurs'] <= players_filter_min[1])]
 
     # Appliquer un filtre de nombre de joueurs max
     filtered_df = filtered_df[(filtered_df['Max_joueurs'] >= players_filter_max[0]) & (filtered_df['Max_joueurs'] <= players_filter_max[1])]
