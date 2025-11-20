@@ -13,14 +13,14 @@ def img_to_base64(image_path):
 
     
 
-chemin_logo = "D:\\Documents Visual Studio\\Logo Past Game.png" #Pierre
+chemin_logo = "Logo Past Game.png" #Pierre
 # Le st.cache_data sert pour éviter les warnings sur Streamlit
 # Charger les informations de vignettes depuis le fichier CSV local avec un encodage UTF-8
 @st.cache_data
 def load_image_data():
     try:
         # Charger avec l'encodage UTF-8 pour éviter les problèmes de caractères spéciaux
-        df_images = pd.read_csv("D:\\Documents Visual Studio\\bgg_thumbnail.csv", encoding = 'utf-8')
+        df_images = pd.read_csv("bgg_thumbnail.csv", encoding = 'utf-8')
         return df_images
     except FileNotFoundError:
         st.error("Le fichier des images n'a pas été trouvé.")
@@ -29,8 +29,8 @@ def load_image_data():
         st.error("Erreur d'encodage avec le fichier des images.")
         return pd.DataFrame()  # Retourner un DataFrame vide en cas d'erreur d'encodage
 
-df0 = pd.read_csv('D:\\Documents Visual Studio\\bdd_bgg.csv', encoding = 'utf-8')
-df1 = pd.read_csv('D:\\Documents Visual Studio\\bgg_thumbnail.csv', encoding = 'utf-8')
+df0 = pd.read_csv('bdd_bgg.csv', encoding = 'utf-8')
+df1 = pd.read_csv('bgg_thumbnail.csv', encoding = 'utf-8')
 df1 = df1[['id','Thumbnail']]
 df = pd.merge(df0, df1, on = 'id', how = 'left')
 
